@@ -32,20 +32,21 @@ if(isset($uriSegments[1])){
                 break;
 
                 case 'DELETE':
-                    $Clients -> deleteClient($idClient);
+                    $Clients -> deleteClient($uriSegments[2]);
                 break;  
+
             }
 
         break;
 
         case 'users':
         require_once('controllers/UsersController.php');
-        $User = new UsersController();
+        $Users = new UsersController();
             switch ($requestMethod) {
                 case 'GET':
                     if(isset($uriSegments[2]) && $uriSegments[2] == 'login'){
                         if(!isset($uriSegments[3]) || $uriSegments[3] == ''){
-                            echo 'Testar login';
+                            $Users -> login();
                     }
                 }
                 break;

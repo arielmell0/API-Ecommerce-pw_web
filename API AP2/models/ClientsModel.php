@@ -20,7 +20,7 @@
 
         }
 
-        public function insertClient($arrayClient) //inseir dados no array pro banco
+        public function insertClient($arrayClient) //inseir dados no array do banco
         {
             $sql = "
                 INSERT INTO clients
