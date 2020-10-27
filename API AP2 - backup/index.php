@@ -12,19 +12,19 @@ if(isset($uriSegments[1])){
     $controller = $uriSegments[1];
     switch ($controller) {
         case 'contacts':
-        require_once('controllers/ContactsController.php');
-        $Contacts = new ContactsController();
+        require_once('controllers/ClientsController.php');
+        $Clients = new ClientsController();
             switch ($requestMethod) {
                 case 'GET':
                     if(isset($uriSegments[2]) && $uriSegments[2] != ''){
-                        $Contacts -> listContact($uriSegments[2]);
+                        $Clients -> listClient($uriSegments[2]);
                     }else{
-                        $Contacts -> listContacts();
+                        $Clients -> listClients();
                     }
                 break;
                 
                 case 'POST':
-                    $Contacts -> insertContact();
+                    $Clients -> insertClient();
                 break;
 
             }
@@ -42,6 +42,10 @@ if(isset($uriSegments[1])){
                     }
                 }
                 break;
+                
+                default:
+                    # code...
+                    break;
             }
             
         break;
