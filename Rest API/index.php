@@ -11,29 +11,21 @@ $uriSegments = explode('/', $rout);//faz o array com os seguimentos de url
 if(isset($uriSegments[1])){
     $controller = $uriSegments[1];
     switch ($controller) {
-        case 'clients':
-        require_once('controllers/ClientsController.php');
-        $Clients = new ClientsController();
+        case 'contacts':
+        require_once('controllers/ContactsController.php');
+        $Contacts = new ContactsController();
             switch ($requestMethod) {
                 case 'GET':
                     if(isset($uriSegments[2]) && $uriSegments[2] != ''){
-                        $Clients -> listClient($uriSegments[2]);
+                        $Contacts -> listContact($uriSegments[2]);
                     }else{
-                        $Clients -> listClients();
+                        $Contacts -> listContacts();
                     }
                 break;
                 
                 case 'POST':
-                    $Clients -> insertClient();
+                    $Contacts -> insertContact();
                 break;
-
-                case 'PUT':
-                    $Clients -> updateClient($uriSegments[2]);
-                break;
-
-                case 'DELETE':
-                    $Clients -> deleteClient($uriSegments[2]);
-                break;  
 
             }
 
@@ -50,16 +42,8 @@ if(isset($uriSegments[1])){
                     }
                 }
                 break;
-                
-                default:
-                    # code...
-                    break;
             }
             
-        break;
-        
-        default:
-            # code...
         break;
     }
 }

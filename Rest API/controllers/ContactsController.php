@@ -1,5 +1,5 @@
 <?php
-class ClientsController
+class ContactsController
 {
 
     var $ClientModel;
@@ -7,17 +7,17 @@ class ClientsController
 
     public function __construct() //nao permite que tu volte para a mesma pagina e pede login de novo, ele chama automaticamente o __construct
     {
-        require_once('models/ClientsModel.php');
-        $this->ClientModel = new ClientsModel();
+        require_once('models/ContactsModel.php');
+        $this->ClientModel = new ContactsModel();
         require_once('controllers/UsersController.php');
         $this->UserController = new UsersController();
     }
 
 
-    public function listClients()
+    public function listContacts()
     {
         if ($this->UserController->isAdmin()) {
-            $this->ClientModel->getClients();
+            $this->ClientModel->getContacts();
             $result = $this->ClientModel->getConsult();
 
             $arrayClients = array();
@@ -34,10 +34,10 @@ class ClientsController
         }
     }
 
-    public function listClient($idClient)
+    public function listContact($idClient)
     {
         if ($this->UserController->isAdmin()) {
-            $this->ClientModel->getClient($idClient);
+            $this->ClientModel->getContact($idClient);
             $result = $this->ClientModel->getConsult();
 
             $arrayClients = array();
@@ -51,50 +51,19 @@ class ClientsController
         }
     }
 
-    public function insertClient()
+    public function insertContact()
     {
-        if ($this->UserController->isAdmin()) {
             $client = json_decode('file_get_contents'('php://input'));
 
             $arrayClient['name'] = $client->name;
             $arrayClient['email'] = $client->email;
-            $arrayClient['phone'] = $client->phone;
-            $arrayClient['address'] = $client->address;
+            $arrayClient['message'] = $client->message;
 
-            $this->ClientModel->insertClient($arrayClient);
+            $this->ClientModel->insertContact($arrayClient);
             $idClient = $this->ClientModel->getConsult();
 
             header('Content-Type: application/json');
             echo ('{"result" : "true"}');
-        }
-    }
-
-    public function updateClient($idClient)
-    {
-        if ($this->UserController->isAdmin()) {
-            $client = json_decode('file_get_contents'('php://input'));
-
-            $arrayClient['idClient'] = $idClient;
-            $arrayClient['name'] = $client->name;
-            $arrayClient['email'] = $client->email;
-            $arrayClient['phone'] = $client->phone;
-            $arrayClient['address'] = $client->address;
-
-            $this->ClientModel->updateClient($arrayClient);
-
-            header('Content-Type: application/json');
-            echo ('{"result" : "true"');
-        }
-    }
-
-    public function deleteClient($idClient)
-    {
-        if ($this->UserController->isAdmin()) {
-            $this->ClientModel->deleteClient($idClient);
-
-            header('Content-Type: application/json');
-            echo ('{"result" : "true"');
-        }
     }
     
 }
